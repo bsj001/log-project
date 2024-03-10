@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+    <properties>
+        <property name="logDir">C:\\MyFile\\myCode\\log</property>
+    </properties>
+    <Appenders>
+        <Console name="consoleAppender" target="SYSTEM_ERR">
+        </Console>
+        <File name="fileAppender" fileName="${logDir}\\log4j2.log">
+            <PatternLayout pattern="[%-5level]%d{yyyy-MM-dd HH:mm:ss}%C%M%L%thread%m%n"/>
+        </File>
+        <RollingFile name="rollingFileAppender" fileName="${logDir}\\rolling.log"
+            filePattern="${logDir}\\$${date:yyyy-MM-dd}\\rolling-%d{yy-MM-dd-HH-mm}-%i.log">
+            <PatternLayout pattern="[%-5level]%d{yyyy-MM-dd HH:mm:ss}%C%M%L%thread%m%n"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10KB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+        <!--配置异步日志-->
+        <!--<Async name="myAsync">-->
+        <!--    <AppenderRef ref="consoleAppender"/>-->
+        <!--</Async>-->
+    </Appenders>
+    <Loggers>
+        <!--自定义logger异步-->
+        <!--<AsyncLogger name="com.bsj.log4j2" level="trace"-->
+        <!--             includeLocation="false" additivity="false">-->
+        <!--    <AppenderRef ref="consoleAppender"/>-->
+        <!--</AsyncLogger>-->
+        <Root level="INFO">
+            <AppenderRef ref="consoleAppender"/>
+            <!--<AppenderRef ref="fileAppender"/>-->
+            <!--<AppenderRef ref="rollingFileAppender"/>-->
+            <!--<AppenderRef ref="myAsync"/>-->
+        </Root>
+    </Loggers>
+</Configuration>
